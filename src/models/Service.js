@@ -9,6 +9,11 @@ const ServiceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    type: {
+        type: String,
+        required: true,
+        enum: ['default', 'vip']
+    },
     price: {
         type: Number,
         required: true

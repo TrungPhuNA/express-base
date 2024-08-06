@@ -8,16 +8,16 @@ const serviceController = require('../../controllers/admin/serviceController');
 /**
  * @swagger
  * tags:
- *   name: Services
+ *   name: Admin Services
  *   description: Pet care service management
  */
 
 /**
  * @swagger
- * /services:
+ * /api/admin/services:
  *   get:
  *     summary: Get all services
- *     tags: [Services]
+ *     tags: [Admin Services]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -86,10 +86,10 @@ router.get('/', auth, serviceController.getAllServices);
 
 /**
  * @swagger
- * /services:
+ * /api/admin/services:
  *   post:
  *     summary: Create a new service
- *     tags: [Services]
+ *     tags: [Admin Services]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -149,10 +149,10 @@ router.post(
 
 /**
  * @swagger
- * /services/{id}:
+ * /api/admin/services/{id}:
  *   get:
  *     summary: Get a service by ID
- *     tags: [Services]
+ *     tags: [Admin Services]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -195,10 +195,10 @@ router.get('/:id', auth, serviceController.getServiceById);
 
 /**
  * @swagger
- * /services/{id}:
+ * /api/admin/services/{id}:
  *   put:
  *     summary: Update an existing service
- *     tags: [Services]
+ *     tags: [Admin Services]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -267,10 +267,10 @@ router.put(
 
 /**
  * @swagger
- * /services/{id}:
+ * /admin/services/{id}:
  *   delete:
  *     summary: Delete an existing service
- *     tags: [Services]
+ *     tags: [Admin Services]
  *     security:
  *       - bearerAuth: []
  *     parameters:
