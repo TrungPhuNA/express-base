@@ -13,6 +13,14 @@ const ServiceSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    totalReviews: {
+        type: Number,
+        default: 0
+    },
+    averageRating: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now
