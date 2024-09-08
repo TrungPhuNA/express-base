@@ -14,7 +14,7 @@ const notificationController = require('../controllers/notificationController');
 
 /**
  * @swagger
- * /notifications/send-confirmation:
+ * /api/notifications/send-confirmation:
  *   post:
  *     summary: Send appointment confirmation SMS
  *     tags: [Notifications]

@@ -160,10 +160,7 @@ router.get('/', auth, promotionController.getAllPromotions);
 router.post(
     '/',
     [
-        auth,
-        check('name', 'Tên chương trình khuyến mãi là bắt buộc').not().isEmpty(),
-        check('type', 'Loại chương trình khuyến mãi là bắt buộc').isIn(['gift', 'discount']),
-        check('value', 'Giá trị chương trình khuyến mãi là bắt buộc').isNumeric(),
+        auth
     ],
     validate,
     promotionController.createPromotion
@@ -287,10 +284,7 @@ router.get('/:id', auth, promotionController.getPromotionById);
 router.put(
     '/:id',
     [
-        auth,
-        check('name', 'Tên chương trình khuyến mãi là bắt buộc').not().isEmpty(),
-        check('type', 'Loại chương trình khuyến mãi là bắt buộc').isIn(['gift', 'discount']),
-        check('value', 'Giá trị chương trình khuyến mãi là bắt buộc').isNumeric(),
+        auth
     ],
     validate,
     promotionController.updatePromotion

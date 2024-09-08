@@ -20,9 +20,13 @@ exports.getServiceById = async (serviceId) => {
     return service;
 };
 
-exports.getAllServices = async (page, pageSize) => {
-    const total = await Service.countDocuments();
-    const services = await Service.find()
+exports.getAllServices = async (page, pageSize, params) => {
+    const query = {};
+    if (params.name) {
+        query.name = { $regex: params.name, $options: 'i' }; // Case-insensitive search
+    }
+    const total = await Service.countDocuments(query);
+    const services = await Service.find(query)
         .skip((page - 1) * pageSize)
         .limit(pageSize);
 

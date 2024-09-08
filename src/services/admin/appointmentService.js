@@ -20,11 +20,17 @@ exports.getAllAppointments = async (page, pageSize) => {
 };
 
 exports.confirmAppointment = async (appointmentId) => {
-    const appointment = await Appointment.findByIdAndUpdate(appointmentId, { status: 'confirmed' }, { new: true });
-    return appointment;
+    return await Appointment.findByIdAndUpdate(appointmentId, {status: 'confirmed'}, {new: true});
 };
 
 exports.cancelAppointment = async (appointmentId) => {
-    const appointment = await Appointment.findByIdAndUpdate(appointmentId, { status: 'canceled' }, { new: true });
-    return appointment;
+    return await Appointment.findByIdAndUpdate(appointmentId, {status: 'canceled'}, {new: true});
+};
+
+exports.completeAppointment = async (appointmentId) => {
+    return await Appointment.findByIdAndUpdate(appointmentId, {status: 'complete'}, {new: true});
+};
+
+exports.pendingAppointment = async (appointmentId) => {
+    return await Appointment.findByIdAndUpdate(appointmentId, {status: 'pending'}, {new: true});
 };

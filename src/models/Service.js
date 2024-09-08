@@ -9,10 +9,13 @@ const ServiceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    avatar: {
+        type: String
+    },
     type: {
         type: String,
         required: true,
-        enum: ['default', 'vip']
+        enum: ['default', 'vip','standard']
     },
     price: {
         type: Number,

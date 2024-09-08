@@ -50,8 +50,7 @@ exports.getAllServices = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.page_size) || 10;
-
-        const { services, meta } = await serviceService.getAllServices(page, pageSize);
+        const { services, meta } = await serviceService.getAllServices(page, pageSize, req.query);
 
         res.json(formatResponse('success', { services, meta }, 'Services retrieved successfully'));
     } catch (err) {

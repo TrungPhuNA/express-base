@@ -12,7 +12,7 @@ const uploadController = require('../controllers/uploadController');
 
 /**
  * @swagger
- * /upload:
+ * /api/upload:
  *   post:
  *     summary: Upload a file
  *     tags: [Upload]

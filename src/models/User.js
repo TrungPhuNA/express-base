@@ -22,10 +22,10 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['doctor', 'customer', 'admin'],
+        enum: ['doctor', 'customer', 'admin','staff'],
         required: true
     },
-    date: {
+    dateOfBirth: {
         type: Date,
         default: Date.now
     }

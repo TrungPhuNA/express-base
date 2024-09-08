@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {text} = require("express");
 
 const PetSchema = new mongoose.Schema({
     name: {
@@ -6,6 +7,19 @@ const PetSchema = new mongoose.Schema({
         required: true
     },
     type: {
+        type: String,
+        required: true
+    },
+    avatar: {
+        type: String
+    },
+    price: {
+        type: Number
+    },
+    gender: {
+        type: String
+    },
+    description: {
         type: String,
         required: true
     },

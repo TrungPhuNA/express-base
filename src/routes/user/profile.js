@@ -12,7 +12,7 @@ const profileController = require('../../controllers/user/profileController');
 
 /**
  * @swagger
- * /user/profile:
+ * /api/user/profile:
  *   get:
  *     summary: Get user profile
  *     tags: [User Profile]
@@ -27,7 +27,7 @@ router.get('/', auth, profileController.getProfile);
 
 /**
  * @swagger
- * /user/profile:
+ * /api/user/profile:
  *   put:
  *     summary: Update user profile
  *     tags: [User Profile]

@@ -38,8 +38,9 @@ exports.getUserPets = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.page_size) || 10;
-
-        const { pets, meta } = await petService.getUserPets(req.user.id, page, pageSize);
+        const query = req.query;
+        console.info("===========[] ===========[query] : ",query);
+        const { pets, meta } = await petService.getUserPets(req.user.id, page, pageSize, query);
 
         res.json(formatResponse('success', { pets, meta }, 'Pets retrieved successfully'));
     } catch (err) {

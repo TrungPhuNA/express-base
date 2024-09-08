@@ -12,7 +12,9 @@ exports.getProfile = async (req, res) => {
             id: user.id,
             name: user.name,
             email: user.email,
-            role: user.role
+            role: user.role,
+            avatar: user.avatar,
+            dateOfBirth: user.dateOfBirth,
         };
         res.json(formatResponse('success', { user: userProfile }, 'Profile retrieved successfully'));
     } catch (err) {
@@ -20,7 +22,8 @@ exports.getProfile = async (req, res) => {
     }
 };
 exports.updateProfile = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, avatar, dateOfBirth } = req.body;
+    console.info("===========[] ===========[req.body] : ",req.body);
 
     try {
         const user = await User.findById(req.user.id);
@@ -30,6 +33,8 @@ exports.updateProfile = async (req, res) => {
 
         if (name) user.name = name;
         if (email) user.email = email;
+        if (avatar) user.avatar = avatar;
+        if (avatar) user.dateOfBirth = dateOfBirth;
         if (password) {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
@@ -41,7 +46,9 @@ exports.updateProfile = async (req, res) => {
             id: user.id,
             name: user.name,
             email: user.email,
-            role: user.role
+            role: user.role,
+            avatar: user.avatar,
+            dateOfBirth: user.dateOfBirth,
         };
         res.json(formatResponse('success', { user: updatedProfile }, 'Profile updated successfully'));
     } catch (err) {

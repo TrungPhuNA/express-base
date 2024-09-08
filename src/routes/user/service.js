@@ -101,6 +101,6 @@ const serviceController = require('../../controllers/user/serviceController');
  *       500:
  *         description: Server error
  */
-router.get('/', auth, serviceController.getAllServices);
+router.get('/', serviceController.getAllServices);
 
 module.exports = router;

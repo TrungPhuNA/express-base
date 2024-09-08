@@ -39,3 +39,29 @@ exports.cancelAppointment = async (req, res) => {
         res.status(500).json(formatResponse('error', [], 'Server error'));
     }
 };
+
+exports.completeAppointment = async (req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        const appointment = await adminAppointmentService.completeAppointment(appointmentId);
+        if (!appointment) {
+            return res.status(404).json(formatResponse('error', [], 'Appointment not found'));
+        }
+        res.json(formatResponse('success', { appointment }, 'Appointment canceled successfully'));
+    } catch (err) {
+        res.status(500).json(formatResponse('error', [], 'Server error'));
+    }
+};
+
+exports.pendingAppointment = async (req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        const appointment = await adminAppointmentService.pendingAppointment(appointmentId);
+        if (!appointment) {
+            return res.status(404).json(formatResponse('error', [], 'Appointment not found'));
+        }
+        res.json(formatResponse('success', { appointment }, 'Appointment canceled successfully'));
+    } catch (err) {
+        res.status(500).json(formatResponse('error', [], 'Server error'));
+    }
+};

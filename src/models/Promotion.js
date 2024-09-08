@@ -1,27 +1,69 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const PromotionSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    type: {
+const PromotionSchema = new Schema({
+    code: {
         type: String,
         required: true,
-        enum: ['gift', 'discount']
+        unique: true,
+        trim: true,
     },
-    value: {
-        type: Number,
-        required: true
-    },
-    description: {
+    programName: {
         type: String,
-        required: false
+        required: true,
+        trim: true,
+    },
+    discountValue: {
+        type: Number,
+        required: true,
+    },
+    discountType: {
+        type: String,
+        enum: ['percent', 'amount'],
+        required: true,
+    },
+    programImage: {
+        type: String
+    },
+    startDate: {
+        type: Date,
+        required: function () {
+            return !this.isUnlimited;
+        }
+    },
+    endDate: {
+        type: Date,
+        required: function () {
+            return !this.isUnlimited;
+        }
+    },
+    isUnlimited: {
+        type: Boolean,
+        default: false,
+    },
+    usageLimit: {
+        type: Number,
+        default: null,  // null means unlimited
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
     }
+}, { timestamps: true });
+
+PromotionSchema.pre('save', function (next) {
+    this.updatedAt = Date.now();
+    next();
 });
 
-module.exports = mongoose.model('Promotion', PromotionSchema);
+const Promotion = mongoose.model('Promotion', PromotionSchema);
+
+module.exports = Promotion;

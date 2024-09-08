@@ -6,16 +6,21 @@ const ReviewSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    service: {
+    target: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Service',
-        required: true
+        required: true, // Dùng cho serviceId hoặc productId
+        refPath: 'targetModel' // Dynamic reference để liên kết đến bảng Service hoặc Product
+    },
+    targetModel: {
+        type: String,
+        required: true,
+        enum: ['Service', 'Product'] // Cho phép chỉ liên kết đến bảng Service hoặc Product
     },
     rating: {
         type: Number,
-        required: true,
         min: 1,
-        max: 5
+        max: 5,
+        required: true
     },
     comment: {
         type: String,
@@ -28,3 +33,4 @@ const ReviewSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Review', ReviewSchema);
+
