@@ -1,7 +1,11 @@
 const Appointment = require('../models/Appointment');
+const moment = require('moment-timezone');
 
 exports.createAppointment = async (appointmentData) => {
-    const appointment = new Appointment(appointmentData);
+    const appointment = new Appointment({
+        ...appointmentData,
+        createdAt: moment().tz("Asia/Bangkok").toDate(), // Đặt createdAt về múi giờ +7
+    });
     await appointment.save();
     return appointment;
 };

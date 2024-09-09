@@ -5,11 +5,13 @@ const formatResponse = require("../../utils/response");
 // Lấy danh sách sản phẩm
 exports.getAllProducts = async (req, res) => {
     try {
+        console.info("===========[] ===========[SP USER] : ");
         const page = parseInt(req.query.page) || 1;
-        const pageSize = parseInt(req.query.page_size) || 10;
+        const pageSize = parseInt(req.query.page_size) || 8;
+        const userId = req.user._id;
 
-        const total = await Product.countDocuments();
-        const products = await Product.find()
+        const total = await Product.countDocuments({ createdBy: userId });
+        const products = await Product.find({ createdBy: userId })
             .skip((page - 1) * pageSize)
             .limit(pageSize)
             .populate('category', 'name')
@@ -55,7 +57,9 @@ exports.createProduct = async (req, res) => {
     });
 
     try {
-        const product = await newProduct.save();
+        const productNew = await newProduct.save();
+        const product = await Product.findById(productNew._id).populate('category', 'name');
+
         res.status(200).json(formatResponse('success', { product }, 'Product created successfully'));
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -101,19 +105,20 @@ exports.createProductScrape = async (req, res) => {
 // Cập nhật sản phẩm
 exports.updateProduct = async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({ message: 'Product not found' });
+        const productUpdate = await Product.findById(req.params.id);
+        if (!productUpdate) return res.status(404).json({ message: 'Product not found' });
         const userId = req.user._id;
         const { name, content, album, avatar, price, category } = req.body;
-        if (name) product.name = name;
-        if (content) product.content = content;
-        if (album) product.album = album;
-        if (avatar) product.avatar = avatar;
-        if (price) product.price = price;
-        if (category) product.category = category;
-        product.createdBy = userId;
+        if (name) productUpdate.name = name;
+        if (content) productUpdate.content = content;
+        if (album) productUpdate.album = album;
+        if (avatar) productUpdate.avatar = avatar;
+        if (price) productUpdate.price = price;
+        if (category) productUpdate.category = category;
+        productUpdate.createdBy = userId;
 
-        await product.save();
+        await productUpdate.save();
+        const product = await Product.findById(req.params.id).populate('category', 'name');
         res.status(200).json(formatResponse('success', { product }, 'Product updated successfully'));
     } catch (err) {
         res.status(400).json({ message: err.message });

@@ -3,6 +3,7 @@ const Appointment = require('../../models/Appointment');
 exports.getAllAppointments = async (page, pageSize) => {
     const total = await Appointment.countDocuments();
     const appointments = await Appointment.find()
+        .sort({ createdAt: -1 })
         .skip((page - 1) * pageSize)
         .limit(pageSize)
         .populate('user', 'name email')

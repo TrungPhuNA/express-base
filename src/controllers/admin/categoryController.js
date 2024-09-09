@@ -53,7 +53,11 @@ exports.createCategory = async (req, res) => {
     });
 
     try {
-        const category = await newCategory.save();
+        const categoryCreate = await newCategory.save();
+        const category = await Category.findById(categoryCreate._id)
+            .populate('createdBy', 'name');
+        console.info("===========[] ===========[categoryCreate] : ",categoryCreate);
+        console.info("===========[] ===========[category] : ",category);
         res.status(200).json(formatResponse('success', { category }, 'Category created successfully'));
     } catch (err) {
         res.status(400).json({ message: err.message });
